@@ -7,6 +7,7 @@ function [theta, J_history] = gradientDescent(X, y, theta, alpha, num_iters)
 m = length(y); % number of training examples
 J_history = zeros(num_iters, 1);
 
+new_theta = theta;
 for iter = 1:num_iters
 
     % ====================== YOUR CODE HERE ======================
@@ -19,6 +20,7 @@ for iter = 1:num_iters
 
 
 
+    new_theta = theta - (alpha / m) * (X(iter)*theta - y) * X(iter)
 
 
 
