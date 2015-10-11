@@ -23,9 +23,14 @@ p = zeros(size(X, 1), 1);
 
 
 
+a2 = sigmoid(Theta1 * [ones(m, 1) X]');
+
+a3 = sigmoid(Theta2 * [ones(1, m); a2]);
 
 
+[max_values, p_transpose] = max(a3, [], 1);
 
+p = p_transpose';
 
 
 
