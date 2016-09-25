@@ -71,13 +71,23 @@ A2 = sigmoid(Z2);
 Z3 = (Theta2 * [ ones(size(A2, 1), 1), A2 ]')';
 A3 = sigmoid(Z3);
 
-K = size(y, 2);
+K = size(A3, 2);
+y_labels = eye(K)(y, :);
+
+% A3
+
+% Theta1
+% Theta2
+
+shit
 
 for i=1:m
   for k=1:K
-    J += -y(i, k) * log(A3(i, k) - (1 - y(i, k)) * log(1 - A3(i, k)));
+    J += -y_labels(i, k) * log(A3(i, k) - (1 - y_labels(i, k)) * log(1 - A3(i, k)));
   end
 end
+
+% forgot about regularization?!
 
 J /= m;
 
