@@ -70,17 +70,19 @@ a3 = sigmoid(z3);
 y_labels = eye(K)(y, :);
 
 for i=1:m
-    J += -dot(y_labels(i, :), log(a3(i, :))) - dot(1 - y_labels(i, :), log(1 - a3(i, :)));
+  J += -dot(y_labels(i, :), log(a3(i, :))) - dot(1 - y_labels(i, :), log(1 - a3(i, :)));
 end
 
 J /= m;
 J += (lambda / (2 * m)) * (Theta1(:, 2:end)(:)' * Theta1(:, 2:end)(:) + Theta2(:, 2:end)(:)' * Theta2(:, 2:end)(:));
 
 delta3 = a3' - y';
-delta2 = (Theta2'(2:end, :) * delta3) .* sigmoidGradient(z2)';
+delta2 = (Theta2(:, 2:end)' * delta3) .* sigmoidGradient(z2)';
 
-Theta1_grad = (1 / m) * delta2 * [ ones(m, 1) X ];
 Theta2_grad = (1 / m) * delta3 * [ ones(m, 1) a2 ];
+Theta1_grad = (1 / m) * delta2 * [ ones(m, 1) X ];
+% Theta1_grad = [ ones(size(Theta1, 1), 1) (1 / m) * delta2 * X ];
+% Theta2_grad = [ ones(size(Theta2, 1), 1) (1 / m) * delta3 * a2 ];
 
 % disp('size(Theta2_grad)');
 % size(Theta2_grad)
