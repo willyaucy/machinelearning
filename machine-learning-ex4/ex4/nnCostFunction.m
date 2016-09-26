@@ -60,41 +60,27 @@ Theta2_grad = zeros(size(Theta2));
 %               backpropagation. That is, you can compute the gradients for
 %               the regularization separately and then add them to Theta1_grad
 %               and Theta2_grad from Part 2.
-%
 
-% size(X)
-% m
-% size([ ones(m, 1) X ])
-Z2 = (Theta1 * [ ones(m, 1) X ]')';
-A2 = sigmoid(Z2);
 
-Z3 = (Theta2 * [ ones(size(A2, 1), 1), A2 ]')';
-A3 = sigmoid(Z3);
 
-K = size(A3, 2);
+
+
+
+
+K = size(Theta2, 1);
+z2 = (Theta1 * [ ones(m, 1) X ]')';
+a2 = sigmoid(z2);
+z3 = (Theta2 * [ ones(m, 1) a2 ]')';
+a3 = sigmoid(z3);
+
 y_labels = eye(K)(y, :);
 
-% A3
-
-% Theta1
-% Theta2
-
-shit
-
 for i=1:m
-  for k=1:K
-    J += -y_labels(i, k) * log(A3(i, k) - (1 - y_labels(i, k)) * log(1 - A3(i, k)));
-  end
+    J += -dot(y_labels(i, :), log(a3(i, :))) - dot(1 - y_labels(i, :), log(1 - a3(i, :)));
 end
 
-% forgot about regularization?!
-
 J /= m;
-
-
-
-
-
+J += (lambda / (2 * m)) * (Theta1(:, 2:end)(:)' * Theta1(:, 2:end)(:) + Theta2(:, 2:end)(:)' * Theta2(:, 2:end)(:));
 
 
 
