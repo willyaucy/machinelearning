@@ -81,8 +81,8 @@ J += (lambda / (2 * m)) * (Theta1(:, 2:end)(:)' * Theta1(:, 2:end)(:) + Theta2(:
 delta3 = (a3 - y_labels)';
 delta2 = (Theta2(:, 2:end)' * delta3) .* sigmoidGradient(z2)';
 
-Theta2_grad = (1 / m) .* delta3 * [ ones(m, 1) a2 ];
-Theta1_grad = (1 / m) .* delta2 * [ ones(m, 1) X ];
+Theta2_grad = (1 / m) .* delta3 * [ ones(m, 1) a2 ] + (lambda / m) * [ zeros(size(Theta2, 1), 1) Theta2(:, 2:end) ];
+Theta1_grad = (1 / m) .* delta2 * [ ones(m, 1) X ] + (lambda / m) * [ zeros(size(Theta1, 1), 1) Theta1(:, 2:end) ];
 
 % -------------------------------------------------------------
 
