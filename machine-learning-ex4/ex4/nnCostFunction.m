@@ -61,12 +61,6 @@ Theta2_grad = zeros(size(Theta2));
 %               the regularization separately and then add them to Theta1_grad
 %               and Theta2_grad from Part 2.
 
-K = size(Theta2, 1); % number of output units (labels)
-
-% z2 = (Theta1 * [ ones(m, 1) X ]')';
-% a2 = sigmoid(z2);
-% z3 = (Theta2 * [ ones(m, 1) a2 ]')';
-% a3 = sigmoid(z3);
 
 z2 = [ones(m, 1) X] * Theta1';
 a2 = sigmoid(z2);
@@ -74,6 +68,7 @@ a2 = sigmoid(z2);
 z3 = [ones(m, 1) a2] * Theta2';
 a3 = sigmoid(z3);
 
+K = size(Theta2, 1); % number of output units (labels)
 y_labels = eye(K)(y, :);
 
 for i=1:m
@@ -83,30 +78,11 @@ end
 J /= m;
 J += (lambda / (2 * m)) * (Theta1(:, 2:end)(:)' * Theta1(:, 2:end)(:) + Theta2(:, 2:end)(:)' * Theta2(:, 2:end)(:));
 
-delta3 = (a3 - y)';
+delta3 = (a3 - y_labels)';
 delta2 = (Theta2(:, 2:end)' * delta3) .* sigmoidGradient(z2)';
 
-Theta2_grad = (1 / m) * delta3 * [ ones(m, 1) a2 ];
-
-% for i=1:size(Theta2, 1)
-%   for k=1:size(Theta2, 2)
-%     Theta2_grad(i, k) += (1 / m) * delta3 * [ ones(m, 1) a2 ];
-%   end
-% end
-
-Theta1_grad = (1 / m) * delta2 * [ ones(m, 1) X ];
-% Theta1_grad = [ ones(size(Theta1, 1), 1) (1 / m) * delta2 * X ];
-% Theta2_grad = [ ones(size(Theta2, 1), 1) (1 / m) * delta3 * a2 ];
-
-% disp('size(Theta2_grad)');
-% size(Theta2_grad)
-% disp('size(Theta2)');
-% size(Theta2)
-%
-% disp('size(Theta1_grad)');
-% size(Theta1_grad)
-% disp('size(Theta1)');
-% size(Theta1)
+Theta2_grad = (1 / m) .* delta3 * [ ones(m, 1) a2 ];
+Theta1_grad = (1 / m) .* delta2 * [ ones(m, 1) X ];
 
 % -------------------------------------------------------------
 

@@ -58,8 +58,8 @@ Theta2_numgrad = reshape(numgrad((1 + (hidden_layer_size * (input_layer_size + 1
 Theta2_numgrad
 
 % disp([numgrad grad]);
-fprintf(['The above two columns you get should be very similar.\n' ...
-         '(Left-Your Numerical Gradient, Right-Analytical Gradient)\n\n']);
+% fprintf(['The above two columns you get should be very similar.\n' ...
+%          '(Left-Your Numerical Gradient, Right-Analytical Gradient)\n\n']);
 
 % Evaluate the norm of the difference between two solutions.
 % If you have a correct implementation, and assuming you used EPSILON = 0.0001
