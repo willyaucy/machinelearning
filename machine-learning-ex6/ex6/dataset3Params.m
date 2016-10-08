@@ -23,11 +23,8 @@ sigma = 0.3;
 %        mean(double(predictions ~= yval))
 %
 
-
-
-model= svmTrain(X, y, C, @(x1, x2) gaussianKernel(x1, x2, sigma));
-
-
+C = 1;
+sigma = 0.1;
 
 % =========================================================================
 
